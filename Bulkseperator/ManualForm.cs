@@ -43,7 +43,16 @@ namespace Bulkseperator
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
+
                 Hide();
+
+                pic1trackbar.Value = 0;
+                lic1trackbar.Value = 0;
+                lic2trackbar.Value = 0;
+                chkPresure.Checked = false;
+                chkLiquid.Checked = false;
+
+                checkBox1.Checked = false;
             }
         }
 
@@ -56,8 +65,7 @@ namespace Bulkseperator
 
         private void pushManualSettings(object sender, EventArgs e)
         {
-            //Console.WriteLine((double)pic1trackbar.Value / 100);
-            tank1.SetManuel((double)pic1trackbar.Value, (double)lic1trackbar.Value / 100, (double)lic2trackbar.Value / 100, chkLiquid.Checked, chkLiquid.Checked);
+            tank1.SetManuel((double)pic1trackbar.Value, (double)lic1trackbar.Value / 100, (double)lic2trackbar.Value / 100, chkPresure.Checked, chkLiquid.Checked);
         }
     }
 }

@@ -78,27 +78,24 @@ namespace Bulkseperator
 
         public bool CalculateFlows(int updatesPerSecond)
         {
-            liquidHH = ((oilSepContent / oilCapacity) > 0.95d);
-            //todo presureHH
-            //presureHH = true;
+            
 
             if (manualControl)
             {
-                if (forceLiquidHH)
-                {
-                    liquidHH = true;
-                }
-                if (forcePresureHH)
-                {
-                    presureHH = true;
-                }
+                liquidHH = forceLiquidHH | oilSepContent / oilCapacity > 0.95d;
+                presureHH = forcePresureHH;
      
+
                 return true;
             }
 
+            liquidHH = ((oilSepContent / oilCapacity) > 0.95d);
+            //todo presureHH alarm
+            //presureHH = true;
+
             waterContent += waterInflow / updatesPerSecond / 1000;
             oilMixContent += oilInflow / updatesPerSecond / 1000;
-            // todo gasContent
+            //todo gasContent calculations
 
             double mixedTotal = waterContent + oilMixContent;
 
@@ -147,18 +144,23 @@ namespace Bulkseperator
             return true;
         }
 
-        // update manuel?
-
         public void ResetManuel()
         {
             manualControl = false;
             forceLiquidHH = false;
             forcePresureHH = false;
 
+            presureHH = false;
+            liquidHH = false;
+
             gasContent = 0;
             waterContent = 0;
             oilMixContent = 0;
             oilSepContent = 0;
+
+            waterInflow = 0;
+            oilInflow = 0;
+            gasInflow = 0;
 
         }
 

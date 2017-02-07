@@ -99,13 +99,26 @@ namespace Bulkseperator
 
         public void UpdateControls(Tank tank)
         {
-            Console.WriteLine(tank.oilSepContent / tank.oilCapacity * 100);
 
             lic1Bar.ForceValue((int)(tank.waterContent / tank.mixedCapacity * 100));
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
 
-            if (tank.liquidHH) liquidHH.BackColor = Color.Red;
-            if (tank.presureHH) presureHH.BackColor = Color.Red;
+            if (tank.liquidHH)
+            {
+                liquidHH.BackColor = Color.Red;
+            }
+            else
+            {
+                liquidHH.BackColor = Color.Transparent;
+            }
+            if (tank.presureHH)
+            {
+                presureHH.BackColor = Color.Red;
+            }
+            else
+            {
+                presureHH.BackColor = Color.Transparent;
+            }
         }
 
         public void InitTimer()
