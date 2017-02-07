@@ -201,7 +201,7 @@
             // oilSeperatedRect
             // 
             this.oilSeperatedRect.BackColor = System.Drawing.Color.DarkGray;
-            this.oilSeperatedRect.Location = new System.Drawing.Point(613, 361);
+            this.oilSeperatedRect.Location = new System.Drawing.Point(598, 351);
             this.oilSeperatedRect.Name = "oilSeperatedRect";
             this.oilSeperatedRect.Size = new System.Drawing.Size(100, 23);
             this.oilSeperatedRect.TabIndex = 44;
