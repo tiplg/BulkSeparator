@@ -183,7 +183,7 @@
             // oilMixedRect
             // 
             this.oilMixedRect.BackColor = System.Drawing.Color.DimGray;
-            this.oilMixedRect.Location = new System.Drawing.Point(156, 297);
+            this.oilMixedRect.Location = new System.Drawing.Point(156, 284);
             this.oilMixedRect.Name = "oilMixedRect";
             this.oilMixedRect.Size = new System.Drawing.Size(100, 36);
             this.oilMixedRect.TabIndex = 42;
