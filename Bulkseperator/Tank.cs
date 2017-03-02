@@ -71,7 +71,7 @@ namespace Bulkseperator
             pic1HA = false;
             pic1LA = false;
             lic1HA = false;
-            lic1LA = false;
+            lic1LA = false; //false;
             lic2HA = false;
             lic2LA = false;
         }

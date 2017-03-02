@@ -74,8 +74,6 @@ namespace Bulkseperator
             UpdateRectangles(tank);
         }
 
-
-
         public void UpdateRectangles(Tank tank)
         {
             
@@ -103,22 +101,18 @@ namespace Bulkseperator
             lic1Bar.ForceValue((int)(tank.waterContent / tank.mixedCapacity * 100));
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
 
-            if (tank.liquidHH)
-            {
-                liquidHH.BackColor = Color.Red;
-            }
-            else
-            {
-                liquidHH.BackColor = Color.Transparent;
-            }
-            if (tank.presureHH)
-            {
-                presureHH.BackColor = Color.Red;
-            }
-            else
-            {
-                presureHH.BackColor = Color.Transparent;
-            }
+
+
+            // r/softwaregore
+            if (tank.liquidHH){ liquidHH.BackColor = Color.Red; } else { liquidHH.BackColor = Color.Transparent; }
+            if (tank.presureHH){ presureHH.BackColor = Color.Red; } else { presureHH.BackColor = Color.Transparent; }
+
+            if (tank.pic1HA) { pic1HA.BackColor = Color.DarkOrange; } else { pic1HA.BackColor = Color.Transparent; }
+            if (tank.pic1LA) { pic1LA.BackColor = Color.DarkOrange; } else { pic1LA.BackColor = Color.Transparent; }
+            if (tank.lic1HA) { lic1HA.BackColor = Color.DarkOrange; } else { lic1HA.BackColor = Color.Transparent; }
+            if (tank.lic1LA) { lic1LA.BackColor = Color.DarkOrange; } else { lic1LA.BackColor = Color.Transparent; }
+            if (tank.lic2HA) { lic2HA.BackColor = Color.DarkOrange; } else { lic2HA.BackColor = Color.Transparent; }
+            if (tank.lic2LA) { lic2LA.BackColor = Color.DarkOrange; } else { lic2LA.BackColor = Color.Transparent; }
         }
 
         public void InitTimer()
@@ -135,7 +129,20 @@ namespace Bulkseperator
             if (serialPort1.BytesToRead > 3)
             {
                 serialPort1.Read(inBuffer, 0, 4);
-                MessageBox.Show(inBuffer[0].ToString() +" ,"+ inBuffer[1].ToString() + " ," + inBuffer[2].ToString() + " ," + inBuffer[3].ToString());
+                //MessageBox.Show(inBuffer[0].ToString() +" ,"+ inBuffer[1].ToString() + " ," + inBuffer[2].ToString() + " ," + inBuffer[3].ToString());
+                
+                tank.gasOutflow = inBuffer[0];
+                tank.oilOutflow = inBuffer[1];
+                tank.waterOutflow = inBuffer[2];
+
+                Console.WriteLine(tank.oilOutflow);
+
+                tank.pic1HA = Convert.ToBoolean((inBuffer[3] >> 5) & 0x01);
+                tank.pic1LA = Convert.ToBoolean((inBuffer[3] >> 4) & 0x01);
+                tank.lic1HA = Convert.ToBoolean((inBuffer[3] >> 3) & 0x01);
+                tank.lic1LA = Convert.ToBoolean((inBuffer[3] >> 2) & 0x01);
+                tank.lic2HA = Convert.ToBoolean((inBuffer[3] >> 1) & 0x01);
+                tank.lic2LA = Convert.ToBoolean(inBuffer[3] & 0x01);
             }
            
             
