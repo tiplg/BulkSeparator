@@ -93,7 +93,7 @@ namespace Bulkseperator
             //todo presureHH alarm
             //presureHH = true;
 
-            waterContent += waterInflow / updatesPerSecond / 1000;
+            waterContent += (waterInflow - waterOutflow) / updatesPerSecond / 1000;
             oilMixContent += oilInflow / updatesPerSecond / 1000;
             //todo gasContent calculations
 
@@ -106,12 +106,18 @@ namespace Bulkseperator
                 {
                     oilMixContent -= overflow;
                     oilSepContent += overflow;
+                    /*(oilSepContent -= oilOutflow;
+                    if (oilSepContent < 0)
+                    {
+                        oilSepContent = 0;
+                    }*/
                 }
                 else
                 {
                     return false;
                 }
             }
+            oilSepContent -= oilOutflow;
 
             return true;
         }

@@ -101,7 +101,10 @@ namespace Bulkseperator
             lic1Bar.ForceValue((int)(tank.waterContent / tank.mixedCapacity * 100));
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
 
-
+            gasValve.ForceValue((int)(tank.gasOutflow / 255 * 100));
+            waterValve.ForceValue((int)(tank.waterOutflow / 255 * 100));
+            oilValve.ForceValue((int)(tank.oilOutflow / 255 * 100));
+            
 
             // r/softwaregore
             if (tank.liquidHH){ liquidHH.BackColor = Color.Red; } else { liquidHH.BackColor = Color.Transparent; }
@@ -130,12 +133,14 @@ namespace Bulkseperator
             {
                 serialPort1.Read(inBuffer, 0, 4);
                 //MessageBox.Show(inBuffer[0].ToString() +" ,"+ inBuffer[1].ToString() + " ," + inBuffer[2].ToString() + " ," + inBuffer[3].ToString());
-                
+
+                //Console.WriteLine(inBuffer[1]);
+
                 tank.gasOutflow = inBuffer[0];
                 tank.oilOutflow = inBuffer[1];
                 tank.waterOutflow = inBuffer[2];
 
-                Console.WriteLine(tank.oilOutflow);
+                //Console.WriteLine(tank.oilOutflow);
 
                 tank.pic1HA = Convert.ToBoolean((inBuffer[3] >> 5) & 0x01);
                 tank.pic1LA = Convert.ToBoolean((inBuffer[3] >> 4) & 0x01);
@@ -150,8 +155,11 @@ namespace Bulkseperator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tank.oilInflow = 1000;
-            tank.waterInflow = 500;
+            tank.oilInflow = 0;
+            //tank.oilOutflow = 900;
+            tank.waterInflow = 125;
+            //tank.waterOutflow = 250;
+
         }
 
         private void cOMToolStripMenuItem_Click(object sender, EventArgs e)
