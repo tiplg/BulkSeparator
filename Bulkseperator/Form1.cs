@@ -100,13 +100,16 @@ namespace Bulkseperator
 
             lic1Bar.ForceValue((int)(tank.waterContent / tank.mixedCapacity * 100));
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
+            pic1Bar.ForceValue((int)(tank.gasContent / tank.gasCapacity * 100));
 
-            gasValve.ForceValue((int)(tank.gasOutflow / 255 * 100));
-            waterValve.ForceValue((int)(tank.waterOutflow / 255 * 100));
-            oilValve.ForceValue((int)(tank.oilOutflow / 255 * 100));
+            gasValve.ForceValue((int)(tank.gasOutflow / 255 /3 * 100));
+            waterValve.ForceValue((int)(tank.waterOutflow / 255 /3 * 100));
+            oilValve.ForceValue((int)(tank.oilOutflow / 255/3 * 100));
             
 
             // r/softwaregore
+            if (tank.noodKlep) { inputValve.BackColor = Color.Red; } else { inputValve.BackColor = Color.Transparent; }
+
             if (tank.liquidHH){ liquidHH.BackColor = Color.Red; } else { liquidHH.BackColor = Color.Transparent; }
             if (tank.presureHH){ presureHH.BackColor = Color.Red; } else { presureHH.BackColor = Color.Transparent; }
 
@@ -136,12 +139,12 @@ namespace Bulkseperator
 
                 //Console.WriteLine(inBuffer[1]);
 
-                tank.gasOutflow = inBuffer[0];
-                tank.oilOutflow = inBuffer[1];
-                tank.waterOutflow = inBuffer[2];
+                tank.gasOutflow = inBuffer[0]*3;
+                tank.oilOutflow = inBuffer[1]*3;
+                tank.waterOutflow = inBuffer[2]*3;
 
                 //Console.WriteLine(tank.oilOutflow);
-
+                tank.noodKlep = Convert.ToBoolean((inBuffer[3] >> 6) & 0x01);
                 tank.pic1HA = Convert.ToBoolean((inBuffer[3] >> 5) & 0x01);
                 tank.pic1LA = Convert.ToBoolean((inBuffer[3] >> 4) & 0x01);
                 tank.lic1HA = Convert.ToBoolean((inBuffer[3] >> 3) & 0x01);
@@ -155,10 +158,9 @@ namespace Bulkseperator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tank.oilInflow = 0;
-            //tank.oilOutflow = 900;
-            tank.waterInflow = 125;
-            //tank.waterOutflow = 250;
+            //tank.oilInflow = 120;
+            tank.waterInflow = 250;
+            tank.gasInflow = 0;
 
         }
 

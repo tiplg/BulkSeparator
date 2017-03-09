@@ -65,7 +65,7 @@ namespace Bulkseperator
 
         private void pushManualSettings(object sender, EventArgs e)
         {
-            tank1.SetManuel((double)pic1trackbar.Value, (double)lic1trackbar.Value / 100, (double)lic2trackbar.Value / 100, chkPresure.Checked, chkLiquid.Checked);
+            tank1.SetManuel((double)pic1trackbar.Value / 100, (double)lic1trackbar.Value / 100, (double)lic2trackbar.Value / 100, chkPresure.Checked, chkLiquid.Checked);
         }
     }
 }

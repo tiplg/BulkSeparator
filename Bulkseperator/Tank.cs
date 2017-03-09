@@ -35,6 +35,9 @@ namespace Bulkseperator
         public double oilOutflow { get; set; }
         public double gasOutflow { get; set; }
 
+        //noodklep
+        public bool noodKlep { get; set; }
+
         // alarm sensors
         public bool presureHH { get; set; }
         public bool liquidHH { get; set; }
@@ -64,6 +67,8 @@ namespace Bulkseperator
             waterInflow = 0;
             oilInflow = 0;
             gasInflow = 0;
+
+            noodKlep = false;
 
             presureHH = false;
             liquidHH = false;
@@ -95,29 +100,33 @@ namespace Bulkseperator
 
             waterContent += (waterInflow - waterOutflow) / updatesPerSecond / 1000;
             oilMixContent += oilInflow / updatesPerSecond / 1000;
+            gasContent += (gasInflow - gasOutflow) / updatesPerSecond / 1000;
             //todo gasContent calculations
 
             double mixedTotal = waterContent + oilMixContent;
 
             if (mixedTotal > mixedCapacity)
             {
+                Console.WriteLine("overflow");
+
                 double overflow = mixedTotal - mixedCapacity;
                 if (oilMixContent > overflow && (oilSepContent + overflow) < oilCapacity)
                 {
                     oilMixContent -= overflow;
                     oilSepContent += overflow;
-                    /*(oilSepContent -= oilOutflow;
-                    if (oilSepContent < 0)
-                    {
-                        oilSepContent = 0;
-                    }*/
                 }
                 else
                 {
                     return false;
                 }
             }
+
             oilSepContent -= oilOutflow;
+
+            if ((oilSepContent > oilCapacity) || (gasContent > gasCapacity))
+            {
+                Console.WriteLine("BIEM");
+            }
 
             return true;
         }
@@ -146,6 +155,10 @@ namespace Bulkseperator
             waterContent = waterPercent * mixedCapacity;
             oilMixContent = (1 - waterPercent) * mixedCapacity;
             oilSepContent = oilPercent * oilCapacity;
+            gasContent = gasPercent * gasCapacity;
+
+            //Console.WriteLine(gasPercent);
+            //Console.WriteLine(gasContent);
 
             return true;
         }
