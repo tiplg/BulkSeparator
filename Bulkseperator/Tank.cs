@@ -90,18 +90,15 @@ namespace Bulkseperator
                 liquidHH = forceLiquidHH | oilSepContent / oilCapacity > 0.95d;
                 presureHH = forcePresureHH;
      
-
                 return true;
             }
 
             liquidHH = ((oilSepContent / oilCapacity) > 0.95d);
-            //todo presureHH alarm
-            //presureHH = true;
+            presureHH = ((gasContent / gasCapacity) > 0.95d);
 
             waterContent += (waterInflow - waterOutflow) / updatesPerSecond / 1000;
             oilMixContent += oilInflow / updatesPerSecond / 1000;
             gasContent += (gasInflow - gasOutflow) / updatesPerSecond / 1000;
-            //todo gasContent calculations
 
             double mixedTotal = waterContent + oilMixContent;
 
@@ -110,22 +107,25 @@ namespace Bulkseperator
                 Console.WriteLine("overflow");
 
                 double overflow = mixedTotal - mixedCapacity;
-                if (oilMixContent > overflow && (oilSepContent + overflow) < oilCapacity)
+
+                if (oilMixContent > overflow)
                 {
                     oilMixContent -= overflow;
                     oilSepContent += overflow;
                 }
                 else
                 {
-                    return false;
+                    oilSepContent += oilMixContent;
+                    oilMixContent = 0;
                 }
             }
 
             oilSepContent -= oilOutflow;
 
-            if ((oilSepContent > oilCapacity) || (gasContent > gasCapacity))
+            if ((oilSepContent > oilCapacity) || (gasContent > gasCapacity) || (waterContent > mixedCapacity))
             {
                 Console.WriteLine("BIEM");
+                return false;
             }
 
             return true;

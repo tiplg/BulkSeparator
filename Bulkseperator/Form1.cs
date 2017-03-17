@@ -102,9 +102,9 @@ namespace Bulkseperator
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
             pic1Bar.ForceValue((int)(tank.gasContent / tank.gasCapacity * 100));
 
-            gasValve.ForceValue((int)(tank.gasOutflow / 255 /3 * 100));
-            waterValve.ForceValue((int)(tank.waterOutflow / 255 /3 * 100));
-            oilValve.ForceValue((int)(tank.oilOutflow / 255/3 * 100));
+            gasValve.ForceValue((int)(tank.gasOutflow / 255 / 4 * 100));
+            waterValve.ForceValue((int)(tank.waterOutflow / 255 / 4 * 100));
+            oilValve.ForceValue((int)(tank.oilOutflow / 255 / 4 * 100));
             
 
             // r/softwaregore
@@ -139,9 +139,10 @@ namespace Bulkseperator
 
                 //Console.WriteLine(inBuffer[1]);
 
-                tank.gasOutflow = inBuffer[0]*3;
-                tank.oilOutflow = inBuffer[1]*3;
-                tank.waterOutflow = inBuffer[2]*3;
+                tank.gasOutflow = inBuffer[0] * 4;
+                tank.oilOutflow = inBuffer[1] * 4;
+                tank.waterOutflow = inBuffer[2] * 4;
+          
 
                 //Console.WriteLine(tank.oilOutflow);
                 tank.noodKlep = Convert.ToBoolean((inBuffer[3] >> 6) & 0x01);
