@@ -99,16 +99,19 @@ namespace Bulkseperator
         {
 
             lic1Bar.ForceValue((int)(tank.waterContent / tank.mixedCapacity * 100));
+            Console.WriteLine((int)(tank.waterContent / tank.mixedCapacity * 100));
             lic2Bar.ForceValue((int)(tank.oilSepContent / tank.oilCapacity * 100));
-            pic1Bar.ForceValue((int)(tank.gasContent / tank.gasCapacity * 100));
+            pic1Bar.ForceValue((int)(tank.gasContent / tank.gasCapacity * 30) + 55);
 
             gasValve.ForceValue((int)(tank.gasOutflow / 255 / 4 * 100));
             waterValve.ForceValue((int)(tank.waterOutflow / 255 / 4 * 100));
             oilValve.ForceValue((int)(tank.oilOutflow / 255 / 4 * 100));
+
+            inflowBox.Text = "Oil: " + tank.oilInflow.ToString() + " l/s\nWater: " + tank.waterInflow.ToString() + " l/s\nGas: " + tank.gasInflow + " l/s";
             
 
             // r/softwaregore
-            if (tank.noodKlep) { inputValve.BackColor = Color.Red; } else { inputValve.BackColor = Color.Transparent; }
+            if (tank.noodKlep) { inputValve.BackColor = Color.Green; } else { inputValve.BackColor = Color.Red; }
 
             if (tank.liquidHH){ liquidHH.BackColor = Color.Red; } else { liquidHH.BackColor = Color.Transparent; }
             if (tank.presureHH){ presureHH.BackColor = Color.Red; } else { presureHH.BackColor = Color.Transparent; }
@@ -159,9 +162,33 @@ namespace Bulkseperator
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(btnStartTest.Text == "Start"){
+
+                trackBar1.Enabled = true;
+                trackBar2.Enabled = true;
+                trackBar3.Enabled = true;
+
+                btnStartTest.Text = "Stop";
+            }
+            else if (btnStartTest.Text == "Stop")
+            {
+
+                trackBar1.Enabled = false;
+                trackBar2.Enabled = false;
+                trackBar3.Enabled = false;
+
+                trackBar1.Value = 0;
+                trackBar2.Value = 0;
+                trackBar3.Value = 0;
+
+                tank.ResetManuel();
+
+                btnStartTest.Text = "Start";
+            }
+
             //tank.oilInflow = 120;
-            tank.waterInflow = 250;
-            tank.gasInflow = 0;
+            //tank.waterInflow = 250;
+            //tank.gasInflow = 0;
 
         }
 
@@ -179,6 +206,21 @@ namespace Bulkseperator
         private void manualControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             manualForm1.Show();
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            tank.oilInflow = trackBar1.Value * 10;
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            tank.waterInflow = trackBar2.Value * 10;
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            tank.gasInflow = trackBar3.Value * 10;
         }
     }
 }

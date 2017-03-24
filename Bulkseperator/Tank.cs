@@ -96,9 +96,17 @@ namespace Bulkseperator
             liquidHH = ((oilSepContent / oilCapacity) > 0.95d);
             presureHH = ((gasContent / gasCapacity) > 0.95d);
 
-            waterContent += (waterInflow - waterOutflow) / updatesPerSecond / 1000;
-            oilMixContent += oilInflow / updatesPerSecond / 1000;
-            gasContent += (gasInflow - gasOutflow) / updatesPerSecond / 1000;
+            if (this.noodKlep)
+            {
+                waterContent += waterInflow / updatesPerSecond / 1000;
+                oilMixContent += oilInflow / updatesPerSecond / 1000;
+                gasContent += gasInflow / updatesPerSecond / 1000;
+            }
+
+            gasContent -= gasOutflow / updatesPerSecond / 1000;
+            waterContent -= waterOutflow / updatesPerSecond / 1000;
+            oilSepContent -= oilOutflow / updatesPerSecond / 1000;
+
 
             double mixedTotal = waterContent + oilMixContent;
 
@@ -120,7 +128,15 @@ namespace Bulkseperator
                 }
             }
 
-            oilSepContent -= oilOutflow;
+            //oilSepContent -= oilOutflow / updatesPerSecond / 1000;
+
+            if (oilSepContent < 0) oilSepContent = 0;
+            if (waterContent < 0) waterContent = 0;
+            if (oilMixContent < 0) oilMixContent = 0;
+            if (gasContent < 0) gasContent = 0;
+
+            //Console.WriteLine(oilOutflow);
+
 
             if ((oilSepContent > oilCapacity) || (gasContent > gasCapacity) || (waterContent > mixedCapacity))
             {
@@ -141,6 +157,8 @@ namespace Bulkseperator
                 outBuffer[2] = (byte)(oilSepContent / oilCapacity * 255);
                 outBuffer[3] = (byte)((liquidHH ? 1 : 0) << 1 | (presureHH ? 1 : 0));
                 serialport1.Write(outBuffer, 0, 4);
+
+                Console.WriteLine(waterOutflow+" : " + oilSepContent);
             }
             
             return true;
