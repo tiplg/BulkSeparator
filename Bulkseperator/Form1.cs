@@ -162,15 +162,15 @@ namespace Bulkseperator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(btnStartTest.Text == "Start"){
+            if(btnStartTest.Text == "Start Simulatie"){
 
                 trackBar1.Enabled = true;
                 trackBar2.Enabled = true;
                 trackBar3.Enabled = true;
 
-                btnStartTest.Text = "Stop";
+                btnStartTest.Text = "Stop Simulatie";
             }
-            else if (btnStartTest.Text == "Stop")
+            else if (btnStartTest.Text == "Stop Simulatie")
             {
 
                 trackBar1.Enabled = false;
@@ -183,7 +183,7 @@ namespace Bulkseperator
 
                 tank.ResetManuel();
 
-                btnStartTest.Text = "Start";
+                btnStartTest.Text = "Start Simulatie";
             }
 
             //tank.oilInflow = 120;
@@ -221,6 +221,11 @@ namespace Bulkseperator
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             tank.gasInflow = trackBar3.Value * 10;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

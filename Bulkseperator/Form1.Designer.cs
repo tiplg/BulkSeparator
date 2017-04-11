@@ -54,6 +54,9 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lic2Bar = new VerticalProgressBar();
             this.lic1Bar = new VerticalProgressBar();
             this.pic1Bar = new VerticalProgressBar();
@@ -216,11 +219,11 @@
             // 
             // btnStartTest
             // 
-            this.btnStartTest.Location = new System.Drawing.Point(12, 530);
+            this.btnStartTest.Location = new System.Drawing.Point(12, 472);
             this.btnStartTest.Name = "btnStartTest";
-            this.btnStartTest.Size = new System.Drawing.Size(55, 23);
+            this.btnStartTest.Size = new System.Drawing.Size(429, 42);
             this.btnStartTest.TabIndex = 45;
-            this.btnStartTest.Text = "Start";
+            this.btnStartTest.Text = "Start Simulatie";
             this.btnStartTest.UseVisualStyleBackColor = true;
             this.btnStartTest.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -280,7 +283,7 @@
             // trackBar2
             // 
             this.trackBar2.Enabled = false;
-            this.trackBar2.Location = new System.Drawing.Point(120, 571);
+            this.trackBar2.Location = new System.Drawing.Point(120, 587);
             this.trackBar2.Maximum = 100;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(321, 45);
@@ -290,12 +293,42 @@
             // trackBar3
             // 
             this.trackBar3.Enabled = false;
-            this.trackBar3.Location = new System.Drawing.Point(120, 622);
+            this.trackBar3.Location = new System.Drawing.Point(120, 652);
             this.trackBar3.Maximum = 100;
             this.trackBar3.Name = "trackBar3";
             this.trackBar3.Size = new System.Drawing.Size(321, 45);
             this.trackBar3.TabIndex = 51;
             this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(50, 520);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 20);
+            this.label1.TabIndex = 52;
+            this.label1.Text = "Olie";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(50, 587);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 20);
+            this.label2.TabIndex = 53;
+            this.label2.Text = "Water";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(50, 652);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 20);
+            this.label3.TabIndex = 54;
+            this.label3.Text = "Gas";
             // 
             // lic2Bar
             // 
@@ -333,6 +366,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Bulkseperator.Properties.Resources.bulkBackground3;
             this.ClientSize = new System.Drawing.Size(1004, 729);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBar3);
             this.Controls.Add(this.trackBar2);
             this.Controls.Add(this.trackBar1);
@@ -403,6 +439,9 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.TrackBar trackBar3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
